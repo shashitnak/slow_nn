@@ -1,15 +1,24 @@
 #![allow(unused)]
+#![deny(missing_docs)]
 
 //! # Slow NN
 //! 
 //! A simple neural network library which uses a graph to build the network
 //! as opposed to weight matrices, hence, is slow.
-pub mod network;
+extern crate rand;
+mod network;
+
+pub use network::*;
 
 #[cfg(test)]
 #[allow(unused)]
 mod tests {
     use super::network::*;
+    use rand::Rng;
+    
+    fn random() -> f64 {
+        rand::thread_rng().gen()
+    }
 
     fn identity(value: f64) -> f64 {
         value
@@ -148,7 +157,7 @@ mod tests {
     fn test_xor() {
         let bias = 5.;
         let inputs = vec![vec![0., 0.], vec![0., 1.], vec![1., 0.], vec![1., 1.]];
-        let outputs = vec![vec![1.], vec![1.], vec![0.], vec![1.]];
+        let outputs = vec![vec![1.], vec![1.], vec![1.], vec![0.]];
 
         //     [0.43040194, 0.21987024, 0.25842456],
         //    [0.02097203, 0.25657626, 0.73340706]
@@ -174,13 +183,13 @@ mod tests {
 
         let mut net = Network::from_conns(bias, 2, 1, 3, &conns);
 
-        let lr = 0.5;
+        let lr = 0.10;
 
         for _ in 0..10000 {
             for i in 0..4 {
                 let input = &inputs[i];
                 let output = &outputs[i];
-                let pred = net.train(input, output, sigmoid, dsigmoid, loss, dloss, lr);
+                let loss = net.train(input, output, sigmoid, dsigmoid, loss, dloss, lr);
             }
             // println!();
         }
