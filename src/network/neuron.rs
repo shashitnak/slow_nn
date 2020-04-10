@@ -1,8 +1,7 @@
 #![allow(unused)]
 
-extern crate rand;
-
 use rand::Rng;
+use serde::{Serialize, Deserialize};
 
 fn random() -> f64 {
     rand::thread_rng().gen()
@@ -11,6 +10,7 @@ fn random() -> f64 {
 use std::f64::NEG_INFINITY;
 
 /// Neuron struct for Neural Network
+#[derive(Serialize, Deserialize)]
 pub struct Neuron {
     /// Indeces of incoming Neurons
     pub in_comes: Vec<usize>,

@@ -3,9 +3,9 @@
 
 //! # Slow NN
 //! 
-//! A simple neural network library which uses a graph to build the network
-//! as opposed to weight matrices, hence, is slow.
+//! A slow Neural Network library that uses graph to represent the network
 extern crate rand;
+extern crate serde;
 mod network;
 
 pub use network::*;

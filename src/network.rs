@@ -3,6 +3,7 @@ mod neuron;
 pub use neuron::*;
 use std::collections::VecDeque;
 use std::f64::NEG_INFINITY;
+use serde::{Serialize, Deserialize};
 
 struct Outputs {
     outputs: Vec<f64>,
@@ -26,13 +27,8 @@ impl Gradients {
     }
 }
 
-/// # Examples
-/// 
-/// ```
-/// let mut net = network::Network::dense(bias, num_inputs, num_outputs, &num_hiddens);
-/// let pred = net.predict(&input, activation);
-/// ```
-
+/// Neural Network struct
+#[derive(Serialize, Deserialize)]
 pub struct Network {
     bias: f64,
     inputs: usize,
