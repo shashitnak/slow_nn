@@ -4,6 +4,8 @@ pub use neuron::*;
 use std::collections::VecDeque;
 use std::f64::NEG_INFINITY;
 use serde::{Serialize, Deserialize};
+use std::fs::File;
+use std::io::{Read, Write, Error};
 
 struct Outputs {
     outputs: Vec<f64>,
@@ -234,5 +236,21 @@ impl Network {
         }
 
         Gradients::new(grad, del_ws)
+    }
+
+    /// loads the network from a file
+    pub fn load(path: &str) -> Result<Self, Error> {
+        let mut file = File::open(path)?;
+        let mut buffer = Vec::new();
+        file.read_to_end(&mut buffer)?;
+        Ok(bincode::deserialize(&buffer).expect("Error reading file"))
+    }
+
+    /// Saves the network to a file
+    pub fn save(&self, path: &str) -> Result<(), Error> {
+        let mut file = File::create(path)?;
+        let buffer: Vec<u8> = bincode::serialize(&self).expect("Error saving file");
+        file.write(&buffer)?;
+        Ok(())
     }
 }
