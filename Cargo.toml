@@ -5,6 +5,8 @@ version = "0.1.2"
 authors = ["Shashi Kant <shashitnak@gmail.com>"]
 edition = "2018"
 description = "A slow neural network library"
+documentation = "https://docs.rs/slow_nn"
+repository = "https://github.com/shashitnak/slow_nn"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
