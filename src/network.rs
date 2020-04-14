@@ -249,8 +249,13 @@ impl Network {
     /// Saves the network to a file
     pub fn save(&self, path: &str) -> Result<(), Error> {
         let mut file = File::create(path)?;
-        let buffer: Vec<u8> = bincode::serialize(&self).expect("Error saving file");
+        let buffer: Vec<u8> = bincode::serialize(&self).expect("Error serializing file");
         file.write(&buffer)?;
         Ok(())
+    }
+
+    /// Returns the bytes of the object after serializing
+    pub fn to_bytes(&self) -> Option<Vec<u8>> {
+        bincode::serialize(&self).ok()
     }
 }

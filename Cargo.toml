@@ -1,7 +1,7 @@
 [package]
 name = "slow_nn"
 license = "MIT"
-version = "0.1.21"
+version = "0.1.22"
 authors = ["Shashi Kant <shashitnak@gmail.com>"]
 edition = "2018"
 description = "A slow neural network library"
